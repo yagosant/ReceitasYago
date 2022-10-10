@@ -7,6 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 //pega uma string e dividi em array mediante ao campo de paramentro
 /* function splitSearch(search: string){
   return search.split(",");
@@ -14,29 +15,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 } */
 const btnVoltar = document.querySelector("#voltar");
 const btnAvancar = document.querySelector("#avancar");
+const paginaAtual = (_a = document.getElementById("pagina")) === null || _a === void 0 ? void 0 : _a.innerHTML;
+let numPagina = parseInt(paginaAtual);
 function eventListenerHandle() {
     btnVoltar === null || btnVoltar === void 0 ? void 0 : btnVoltar.addEventListener("click", voltarPagina);
     btnAvancar === null || btnAvancar === void 0 ? void 0 : btnAvancar.addEventListener("click", avancarPagina);
 }
 function voltarPagina() {
-    var _a;
-    const paginaAtual = (_a = document.getElementById("pagina")) === null || _a === void 0 ? void 0 : _a.innerHTML;
-    let numPagina = parseInt(paginaAtual);
     numPagina = numPagina - 1;
     if (numPagina < 1)
         return alert("não conseguimos ainda trazer paginas negativas, sinto muito");
+    paginaAtual;
     console.log(numPagina);
     getData(numPagina);
 }
 function avancarPagina() {
-    var _a;
-    const paginaAtual = (_a = document.getElementById("pagina")) === null || _a === void 0 ? void 0 : _a.innerHTML;
-    let numPagina = parseInt(paginaAtual);
     numPagina = numPagina + 1;
     console.log(numPagina);
     getData(numPagina);
-}
-function renderPaginacao() {
 }
 //função para pegar os dados, criando o tipo genérico de receita
 function getData(number) {
@@ -56,16 +52,28 @@ function renderizarCards(receitas, pagina) {
     const total = pagina * quantiade;
     let atual = (pagina - 1) * quantiade;
     for (let index = atual; index <= total; index++) {
-        const card = ` <div class="card-receitas">
-                  <img src="${receitas[index].urlImage}" alt="" class="card-receitas-poster" id="card-receitas-poster--${receitas[index]}">
+        const card = ` <a href="#abrirModal">
+          <div class="card-receitas">
+             <img src="${receitas[index].urlImage}" alt="" class="card-receitas-poster" id="card-receitas-poster--${receitas[index]}">
                   <div class="card-receitas-info-container">
                    <div class="card-receitas-info-container-header">
-                      <h2 class="card-receitas-info-title" id="card-receitas-title-${receitas[index]}"> ${receitas[index].Name} - &nbsp;
-                      <span class="card-receitas-info-notes" id="card-receitas-nota-${receitas[index]}">${receitas[index].Author} </span></h2>
-                      <button className="button"> Veja como fazer</button>
+                      <h4 class="card-receitas-info-title" id="card-receitas-title-${receitas[index]}"> ${receitas[index].Name} - &nbsp;
+                      <span class="card-receitas-info-notes" id="card-receitas-nota-${receitas[index]}">${receitas[index].Author} </span></h4>
                    </div>
                    </div>
-                  </div>`;
+                  </div>
+                  </a>
+                  <div id="abrirModal" class="modal">
+                  
+                  <div>
+                  <a href="#fechar" title="Fechar" class="fechar">x</a>
+                  <h2 id="card-receitas-title-${receitas[index]}">${receitas[index].Name} </h2>
+                 <h3 id="card-receitas-nota-${receitas[index]}">${receitas[index].Author} </h3>
+                 <b><p>Ingredientes:</p></b>
+                  <p id="card-receitas-title-${receitas[index]}">${receitas[index].Ingredients}</p>    
+                  </div>
+                </div>
+                  `;
         if (containerGridreceitas)
             containerGridreceitas.innerHTML += card;
     }

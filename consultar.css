@@ -1,0 +1,43 @@
+#container-grid-receitas{
+    display: grid;
+    gap: 10px; /* distancia entre os itens lateral */
+    width: 90vw;  /* view width; */
+    height: auto; /* view height; */
+    box-shadow: 5px 5px 5px #000;
+    border: 1px solid rgb(96, 96, 216);
+    border-radius: 10px;
+    margin: auto;
+    padding: 20px;
+    grid-template-columns: repeat(auto-fill, 300px); /* distribui como grade um do lado do outro */
+    justify-content: center;
+  }
+
+
+  #container-grid-receitas{
+    display: grid;
+      gap: 10px; /* distancia entre os itens lateral */
+      width: 90vw;  /* view width; */
+      height: auto; /* view height; */
+      border: 1px solid rgb(96, 96, 216);
+      border-radius: 10px;
+      margin: auto;
+      padding: 20px;
+      justify-content: center;
+  }
+  
+  h2{
+    color: rgb(96, 96, 216);
+    font-size: xx-large;
+    margin-bottom: 10px;
+  }
+  
+  h3{
+    font-size: large;
+    margin-bottom: 10px;
+  }
+  
+  #card-receita{
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }

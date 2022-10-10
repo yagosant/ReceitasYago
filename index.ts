@@ -8,6 +8,8 @@ import { Recipe } from "./types";
 
 const btnVoltar = document.querySelector("#voltar");
 const btnAvancar = document.querySelector("#avancar");
+const paginaAtual: string = document.getElementById("pagina")?.innerHTML!;
+let numPagina = parseInt(paginaAtual);
 
 
 function eventListenerHandle() {
@@ -17,30 +19,21 @@ function eventListenerHandle() {
 
 
 function voltarPagina(){
-  const paginaAtual: string = document.getElementById("pagina")?.innerHTML!;
-  let numPagina = parseInt(paginaAtual);
   numPagina = numPagina - 1;  
   if(numPagina < 1) return alert("não conseguimos ainda trazer paginas negativas, sinto muito");
+  paginaAtual
     console.log(numPagina);
-    
   getData(numPagina);
   
 }
 
 function avancarPagina(){
-  const paginaAtual: string = document.getElementById("pagina")?.innerHTML!;
-  let numPagina = parseInt(paginaAtual);
   numPagina = numPagina + 1;  
     console.log(numPagina);
-    
   getData(numPagina);
   
 }
 
-function renderPaginacao(){
-
-  
-}
 //função para pegar os dados, criando o tipo genérico de receita
 async function getData(number:number): Promise<Recipe[]>{
     
@@ -63,16 +56,29 @@ function renderizarCards(receitas:Recipe[], pagina: number) {
 
    for (let index = atual; index <= total; index++) {
 
-      const card = ` <div class="card-receitas">
-                  <img src="${receitas[index].urlImage}" alt="" class="card-receitas-poster" id="card-receitas-poster--${receitas[index]}">
+          const card = ` <a href="#abrirModal">
+          <div class="card-receitas">
+             <img src="${receitas[index].urlImage}" alt="" class="card-receitas-poster" id="card-receitas-poster--${receitas[index]}">
                   <div class="card-receitas-info-container">
                    <div class="card-receitas-info-container-header">
-                      <h2 class="card-receitas-info-title" id="card-receitas-title-${receitas[index]}"> ${receitas[index].Name} - &nbsp;
-                      <span class="card-receitas-info-notes" id="card-receitas-nota-${receitas[index]}">${receitas[index].Author} </span></h2>
-                      <button className="button"> Veja como fazer</button>
+                      <h4 class="card-receitas-info-title" id="card-receitas-title-${receitas[index]}"> ${receitas[index].Name} - &nbsp;
+                      <span class="card-receitas-info-notes" id="card-receitas-nota-${receitas[index]}">${receitas[index].Author} </span></h4>
                    </div>
                    </div>
-                  </div>`;
+                  </div>
+                  </a>
+                  <div id="abrirModal" class="modal">
+                  
+                  <div>
+                  <a href="#fechar" title="Fechar" class="fechar">x</a>
+                  <h2 id="card-receitas-title-${receitas[index]}">${receitas[index].Name} </h2>
+                 <h3 id="card-receitas-nota-${receitas[index]}">${receitas[index].Author} </h3>
+                 <b><p>Ingredientes:</p></b>
+                  <p id="card-receitas-title-${receitas[index]}">${receitas[index].Ingredients}</p>    
+                  </div>
+                </div>
+                  `; 
+     
       if(containerGridreceitas) containerGridreceitas.innerHTML += card;
   } 
 }
