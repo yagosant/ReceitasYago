@@ -6,25 +6,44 @@ import { Recipe } from "./types";
 
 } */
 
+const btnVoltar = document.querySelector("#voltar");
+const btnAvancar = document.querySelector("#avancar");
 
-function mudarPagina(acao:string){
+
+function eventListenerHandle() {
+  (btnVoltar as HTMLButtonElement)?.addEventListener("click", voltarPagina);
+  (btnAvancar as HTMLButtonElement)?.addEventListener("click", avancarPagina);
+}
+
+
+function voltarPagina(){
   const paginaAtual: string = document.getElementById("pagina")?.innerHTML!;
   let numPagina = parseInt(paginaAtual);
-  if(acao === 'voltar'){
-    if(numPagina < 1)return alert("não conseguimos ainda trazer paginas negativas, sinto muito");
-    numPagina = numPagina - 1;
-  }
-
-  if(acao == "avancar") numPagina = numPagina + 1;
-
+  numPagina = numPagina - 1;  
+  if(numPagina < 1) return alert("não conseguimos ainda trazer paginas negativas, sinto muito");
+    console.log(numPagina);
+    
   getData(numPagina);
   
 }
 
+function avancarPagina(){
+  const paginaAtual: string = document.getElementById("pagina")?.innerHTML!;
+  let numPagina = parseInt(paginaAtual);
+  numPagina = numPagina + 1;  
+    console.log(numPagina);
+    
+  getData(numPagina);
+  
+}
+
+function renderPaginacao(){
+
+  
+}
 //função para pegar os dados, criando o tipo genérico de receita
 async function getData(number:number): Promise<Recipe[]>{
     
-  
     const request = await fetch("https://receitas-server.vercel.app/api");
     const data = await request.json();
     renderizarCards(data, number);
@@ -58,24 +77,10 @@ function renderizarCards(receitas:Recipe[], pagina: number) {
   } 
 }
 
-//filtro multi itens do mesmo nome
- /* async function filterByIngredients(ingredient: string){
-  const data = await getData();
-  const filterData  = data.filter(recipe => {
-    const ingredientIncludes =  recipe.Ingredients.filter(recipeIngredient=>{
-      //joga tudo para minusculo
-      return recipeIngredient.toLowerCase().includes(ingredient)
-    });
 
-    if(ingredientIncludes.length) return recipe;
-  }); 
- //console.log(filterData);
-}
-   
-*/
-
- 
-getData(1);
+eventListenerHandle();
+/*  
+getData(1); */
 
 
 /* filterByIngredients("dark"); */

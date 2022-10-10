@@ -12,18 +12,31 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
   return search.split(",");
 
 } */
-function mudarPagina(acao) {
+const btnVoltar = document.querySelector("#voltar");
+const btnAvancar = document.querySelector("#avancar");
+function eventListenerHandle() {
+    btnVoltar === null || btnVoltar === void 0 ? void 0 : btnVoltar.addEventListener("click", voltarPagina);
+    btnAvancar === null || btnAvancar === void 0 ? void 0 : btnAvancar.addEventListener("click", avancarPagina);
+}
+function voltarPagina() {
     var _a;
     const paginaAtual = (_a = document.getElementById("pagina")) === null || _a === void 0 ? void 0 : _a.innerHTML;
     let numPagina = parseInt(paginaAtual);
-    if (acao === 'voltar') {
-        if (numPagina < 1)
-            return alert("não conseguimos ainda trazer paginas negativas, sinto muito");
-        numPagina = numPagina - 1;
-    }
-    if (acao == "avancar")
-        numPagina = numPagina + 1;
+    numPagina = numPagina - 1;
+    if (numPagina < 1)
+        return alert("não conseguimos ainda trazer paginas negativas, sinto muito");
+    console.log(numPagina);
     getData(numPagina);
+}
+function avancarPagina() {
+    var _a;
+    const paginaAtual = (_a = document.getElementById("pagina")) === null || _a === void 0 ? void 0 : _a.innerHTML;
+    let numPagina = parseInt(paginaAtual);
+    numPagina = numPagina + 1;
+    console.log(numPagina);
+    getData(numPagina);
+}
+function renderPaginacao() {
 }
 //função para pegar os dados, criando o tipo genérico de receita
 function getData(number) {
@@ -57,22 +70,9 @@ function renderizarCards(receitas, pagina) {
             containerGridreceitas.innerHTML += card;
     }
 }
-//filtro multi itens do mesmo nome
-/* async function filterByIngredients(ingredient: string){
- const data = await getData();
- const filterData  = data.filter(recipe => {
-   const ingredientIncludes =  recipe.Ingredients.filter(recipeIngredient=>{
-     //joga tudo para minusculo
-     return recipeIngredient.toLowerCase().includes(ingredient)
-   });
-
-   if(ingredientIncludes.length) return recipe;
- });
-//console.log(filterData);
-}
-  
-*/
-getData(1);
+eventListenerHandle();
 export {};
+/*
+getData(1); */
 /* filterByIngredients("dark"); */
 //////////////

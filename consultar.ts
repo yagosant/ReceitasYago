@@ -48,3 +48,19 @@
   });
  console.log(filterData);
 } */
+
+//filtro multi itens do mesmo nome
+ /* async function filterByIngredients(ingredient: string){
+  const data = await getData();
+  const filterData  = data.filter(recipe => {
+    const ingredientIncludes =  recipe.Ingredients.filter(recipeIngredient=>{
+      //joga tudo para minusculo
+      return recipeIngredient.toLowerCase().includes(ingredient)
+    });
+
+    if(ingredientIncludes.length) return recipe;
+  }); 
+ //console.log(filterData);
+}
+   
+*/
